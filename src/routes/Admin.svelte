@@ -143,7 +143,7 @@
           {ticketNumber},
           <span
             class="votesBar"
-            style="width:{(nbVote * 300) / nbVotes}px; background-color:hsl({(nbVote * 360) / nbVotes}, 100%, 50%)" />{nbVote}
+            style="width:{(nbVote * 300) / nbVotes}px; background-color:hsl({(nbVote * 360) / nbVotes}, 90%, 50%)" />{nbVote}
         </p>
       {/each}
     </div>

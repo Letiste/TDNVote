@@ -1499,7 +1499,7 @@ var app = (function () {
     		h() {
     			attr(span, "class", "votesBar svelte-1l62ik3");
     			set_style(span, "width", /*nbVote*/ ctx[17] * 300 / /*nbVotes*/ ctx[0] + "px");
-    			set_style(span, "background-color", "hsl(" + /*nbVote*/ ctx[17] * 360 / /*nbVotes*/ ctx[0] + ", 100%, 50%)");
+    			set_style(span, "background-color", "hsl(" + /*nbVote*/ ctx[17] * 360 / /*nbVotes*/ ctx[0] + ", 90%, 50%)");
     		},
     		m(target, anchor) {
     			insert(target, p, anchor);
@@ -1517,7 +1517,7 @@ var app = (function () {
     			}
 
     			if (dirty & /*cumulatedVotes, nbVotes*/ 9) {
-    				set_style(span, "background-color", "hsl(" + /*nbVote*/ ctx[17] * 360 / /*nbVotes*/ ctx[0] + ", 100%, 50%)");
+    				set_style(span, "background-color", "hsl(" + /*nbVote*/ ctx[17] * 360 / /*nbVotes*/ ctx[0] + ", 90%, 50%)");
     			}
 
     			if (dirty & /*cumulatedVotes*/ 8 && t2_value !== (t2_value = /*nbVote*/ ctx[17] + "")) set_data(t2, t2_value);
