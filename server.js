@@ -1,6 +1,6 @@
 const path = require('path');
 const express = require('express');
-const app = require('./public/build/App.js');
+const app = require('./public/App.js');
 
 const server = express();
 
@@ -10,15 +10,16 @@ server.get('*', function (req, res) {
 
   res.write(`
   <!DOCTYPE html>
-  <link rel ="stylesheet" href="/global.css">
   <link rel ="stylesheet" href="/bundle.css">
-  <body>${html}</body>
-  <script defer src="/build/bundle.js"></script>`);
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rye">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abhaya Libre">
+  <body style="margin:0px">${html}</body>
+  <script defer src="/bundle.js"></script>`);
 
   res.end();
 });
 
 const port = process.env.port || 3000;
-server.listen(port, '192.168.1.43', () =>
+server.listen(port, () =>
   console.log(`Listening on port ${port}`)
 );

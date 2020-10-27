@@ -8,9 +8,7 @@
 </script>
 
 <Router {url}>
-  <div>
-    <Route path="login" component={Login} />
-    <Route path="admin" component={Admin} />
-    <Route path="/" component={Home} />
-  </div>
+  <Route path="login" component={Login} />
+  <Route path="admin" component={Admin} />
+  <Route path="/" component={Home} />
 </Router>
