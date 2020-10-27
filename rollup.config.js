@@ -14,13 +14,13 @@ export default [
       sourcemap: true,
       format: 'iife',
       name: 'app',
-      file: 'public/build/bundle.js',
+      file: 'public/bundle.js',
     },
     plugins: [
       svelte({
         hydratable: true,
         css: (css) => {
-          css.write('public/build/bundle.css');
+          css.write('bundle.css');
         },
       }),
       resolve(),
@@ -29,7 +29,7 @@ export default [
       // By setting a small delay the Node server has a chance to restart before reloading.
       isDev &&
         livereload({
-          watch: 'public/build/App.js',
+          watch: 'public/App.js',
           delay: 200,
         }),
       !isDev && terser(),
@@ -42,7 +42,7 @@ export default [
       sourcemap: false,
       format: 'cjs',
       name: 'app',
-      file: 'public/build/App.js',
+      file: 'public/App.js',
     },
     plugins: [
       svelte({
