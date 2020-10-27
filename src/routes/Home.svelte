@@ -35,7 +35,6 @@
     border-radius: 6px;
     box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14),
       0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
-    /* background: url('/assets/lion.png') no-repeat center; */
     background-color: #fff;
     background-size: contain;
     margin-bottom: 50px;
@@ -62,6 +61,10 @@
     border-top: 2px solid rgba(39, 9, 55, 0.5);
   }
 
+  label {
+    align-self: center;
+  }
+
   select {
     font-size: 2rem;
     margin: 15px;
@@ -78,6 +81,7 @@
 
   .ticket {
     display: flex;
+    flex-wrap: nowrap;
   }
 
   input {
@@ -132,7 +136,7 @@
         <input name="ticketNumber" id="ticketNumber" type="number" />
       </div>
 
-      <label for="vote">N° du gagnant</label>
+      <label for="vote" style="align-self: start">N° du gagnant</label>
       <select name="vote" id="vote">
         {#each artists as artist}
           <option value={artist}>{artist}</option>
