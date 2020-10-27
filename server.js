@@ -1,10 +1,34 @@
-const path = require('path');
 const express = require('express');
+const cors = require('cors')
+const bodyParser = require('body-parser')
 const app = require('./public/App.js');
+const path = require('path')
+const fs = require('fs')
 
 const server = express();
 
+const corsOptions = {
+  origin: ['http://localhost:3000', 'http://192.168.1.43:3000']}
+
+server.use(cors(corsOptions))
+
+server.use(bodyParser.json())
+
 server.use(express.static(path.join(__dirname, 'public')));
+
+const directoryPath = path.join(__dirname, 'routes');
+
+// Automatically add routes to the app
+fs.readdir(directoryPath, function (err, files) {
+  if (err) {
+    return console.log('Unable to scan directory : ' + err);
+  }
+  files.forEach((file) => {
+    require(`./routes/${file}`)(server);
+  });
+});
+
+
 server.get('*', function (req, res) {
   const { html } = app.render({ url: req.url });
 
