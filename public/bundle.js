@@ -3176,6 +3176,7 @@ var app = (function () {
     }
 
     // (221:10) {#if showSpectators}
+
     function create_if_block$1(ctx) {
     	let each_1_anchor;
     	let each_value = /*spectators*/ ctx[4];
@@ -3219,6 +3220,348 @@ var app = (function () {
     						each_blocks[i].p(child_ctx, dirty);
     					} else {
     						each_blocks[i] = create_each_block(child_ctx);
+    						each_blocks[i].c();
+    						each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
+    					}
+    				}
+
+    				for (; i < each_blocks.length; i += 1) {
+    					each_blocks[i].d(1);
+    				}
+
+    				each_blocks.length = each_value.length;
+    			}
+    		},
+    		d(detaching) {
+    			destroy_each(each_blocks, detaching);
+    			if (detaching) detach(each_1_anchor);
+    		}
+    	};
+    }
+
+    // (172:12) {#each spectators as spectator}
+    function create_each_block(ctx) {
+    	let tr;
+    	let td0;
+    	let t0;
+    	let t1_value = /*spectator*/ ctx[10].ticketNumber + "";
+    	let t1;
+    	let t2;
+    	let td1;
+    	let t3;
+    	let t4_value = /*spectator*/ ctx[10].vote + "";
+    	let t4;
+    	let t5;
+
+    	return {
+    		c() {
+    			tr = element("tr");
+    			td0 = element("td");
+    			t0 = text("N° de ticket: ");
+    			t1 = text(t1_value);
+    			t2 = space();
+    			td1 = element("td");
+    			t3 = text("Vote: ");
+    			t4 = text(t4_value);
+    			t5 = space();
+    			this.h();
+    		},
+    		l(nodes) {
+    			tr = claim_element(nodes, "TR", { class: true });
+    			var tr_nodes = children(tr);
+    			td0 = claim_element(tr_nodes, "TD", { class: true });
+    			var td0_nodes = children(td0);
+    			t0 = claim_text(td0_nodes, "N° de ticket: ");
+    			t1 = claim_text(td0_nodes, t1_value);
+    			td0_nodes.forEach(detach);
+    			t2 = claim_space(tr_nodes);
+    			td1 = claim_element(tr_nodes, "TD", { class: true });
+    			var td1_nodes = children(td1);
+    			t3 = claim_text(td1_nodes, "Vote: ");
+    			t4 = claim_text(td1_nodes, t4_value);
+    			td1_nodes.forEach(detach);
+    			t5 = claim_space(tr_nodes);
+    			tr_nodes.forEach(detach);
+    			this.h();
+    		},
+    		h() {
+    			attr(td0, "class", "svelte-1l62ik3");
+    			attr(td1, "class", "svelte-1l62ik3");
+    			attr(tr, "class", "svelte-1l62ik3");
+    		},
+    		m(target, anchor) {
+    			insert(target, tr, anchor);
+    			append(tr, td0);
+    			append(td0, t0);
+    			append(td0, t1);
+    			append(tr, t2);
+    			append(tr, td1);
+    			append(td1, t3);
+    			append(td1, t4);
+    			append(tr, t5);
+    		},
+    		p(ctx, dirty) {
+    			if (dirty & /*spectators*/ 16 && t1_value !== (t1_value = /*spectator*/ ctx[10].ticketNumber + "")) set_data(t1, t1_value);
+    			if (dirty & /*spectators*/ 16 && t4_value !== (t4_value = /*spectator*/ ctx[10].vote + "")) set_data(t4, t4_value);
+    		},
+    		d(detaching) {
+    			if (detaching) detach(tr);
+    		}
+    	};
+    }
+
+    function create_fragment$2(ctx) {
+    	let main;
+    	let div0;
+    	let h1;
+    	let t0;
+    	let t1;
+    	let div4;
+    	let h2;
+    	let t2;
+    	let t3;
+    	let p;
+    	let t4;
+    	let strong;
+    	let t5;
+    	let t6;
+    	let div1;
+    	let t7;
+    	let div2;
+    	let label0;
+    	let t8;
+    	let t9;
+    	let button0;
+    	let t10;
+    	let label1;
+    	let t11;
+    	let t12;
+    	let button1;
+    	let t13;
+    	let h3;
+    	let t14;
+    	let t15;
+    	let div3;
+    	let table;
+    	let tbody;
+    	let t16;
+    	let mounted;
+    	let dispose;
+    	let each_value_2 = /*cumulatedVotes*/ ctx[5];
+    	let each_blocks = [];
+
+    	for (let i = 0; i < each_value_2.length; i += 1) {
+    		each_blocks[i] = create_each_block_2(get_each_context_2(ctx, each_value_2, i));
+    	}
+
+    	let if_block0 = /*showArtists*/ ctx[1] && create_if_block_1$1(ctx);
+    	let if_block1 = /*showSpectators*/ ctx[2] && create_if_block$1(ctx);
+
+    	return {
+    		c() {
+    			main = element("main");
+    			div0 = element("div");
+    			h1 = element("h1");
+    			t0 = text("Talents du Nord");
+    			t1 = space();
+    			div4 = element("div");
+    			h2 = element("h2");
+    			t2 = text("Administration");
+    			t3 = space();
+    			p = element("p");
+    			t4 = text("Nombre de votes : ");
+    			strong = element("strong");
+    			t5 = text(/*nbVotes*/ ctx[0]);
+    			t6 = space();
+    			div1 = element("div");
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].c();
+    			}
+
+    			t7 = space();
+    			div2 = element("div");
+    			label0 = element("label");
+    			t8 = text("Artistes");
+    			t9 = space();
+    			button0 = element("button");
+    			t10 = space();
+    			label1 = element("label");
+    			t11 = text("Spectateurs");
+    			t12 = space();
+    			button1 = element("button");
+    			t13 = space();
+    			h3 = element("h3");
+    			t14 = text("Votes");
+    			t15 = space();
+    			div3 = element("div");
+    			table = element("table");
+    			tbody = element("tbody");
+    			if (if_block0) if_block0.c();
+    			t16 = space();
+    			if (if_block1) if_block1.c();
+    			this.h();
+    		},
+    		l(nodes) {
+    			main = claim_element(nodes, "MAIN", { class: true });
+    			var main_nodes = children(main);
+    			div0 = claim_element(main_nodes, "DIV", { class: true });
+    			var div0_nodes = children(div0);
+    			h1 = claim_element(div0_nodes, "H1", { class: true });
+    			var h1_nodes = children(h1);
+    			t0 = claim_text(h1_nodes, "Talents du Nord");
+    			h1_nodes.forEach(detach);
+    			div0_nodes.forEach(detach);
+    			t1 = claim_space(main_nodes);
+    			div4 = claim_element(main_nodes, "DIV", { class: true });
+    			var div4_nodes = children(div4);
+    			h2 = claim_element(div4_nodes, "H2", { class: true });
+    			var h2_nodes = children(h2);
+    			t2 = claim_text(h2_nodes, "Administration");
+    			h2_nodes.forEach(detach);
+    			t3 = claim_space(div4_nodes);
+    			p = claim_element(div4_nodes, "P", {});
+    			var p_nodes = children(p);
+    			t4 = claim_text(p_nodes, "Nombre de votes : ");
+    			strong = claim_element(p_nodes, "STRONG", {});
+    			var strong_nodes = children(strong);
+    			t5 = claim_text(strong_nodes, /*nbVotes*/ ctx[0]);
+    			strong_nodes.forEach(detach);
+    			p_nodes.forEach(detach);
+    			t6 = claim_space(div4_nodes);
+    			div1 = claim_element(div4_nodes, "DIV", {});
+    			var div1_nodes = children(div1);
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].l(div1_nodes);
+    			}
+
+    			div1_nodes.forEach(detach);
+    			t7 = claim_space(div4_nodes);
+    			div2 = claim_element(div4_nodes, "DIV", { class: true });
+    			var div2_nodes = children(div2);
+    			label0 = claim_element(div2_nodes, "LABEL", { for: true });
+    			var label0_nodes = children(label0);
+    			t8 = claim_text(label0_nodes, "Artistes");
+    			label0_nodes.forEach(detach);
+    			t9 = claim_space(div2_nodes);
+    			button0 = claim_element(div2_nodes, "BUTTON", { type: true, style: true, class: true });
+    			children(button0).forEach(detach);
+    			t10 = claim_space(div2_nodes);
+    			label1 = claim_element(div2_nodes, "LABEL", { for: true, style: true });
+    			var label1_nodes = children(label1);
+    			t11 = claim_text(label1_nodes, "Spectateurs");
+    			label1_nodes.forEach(detach);
+    			t12 = claim_space(div2_nodes);
+    			button1 = claim_element(div2_nodes, "BUTTON", { style: true, type: true, class: true });
+    			children(button1).forEach(detach);
+    			div2_nodes.forEach(detach);
+    			t13 = claim_space(div4_nodes);
+    			h3 = claim_element(div4_nodes, "H3", { class: true });
+    			var h3_nodes = children(h3);
+    			t14 = claim_text(h3_nodes, "Votes");
+    			h3_nodes.forEach(detach);
+    			t15 = claim_space(div4_nodes);
+    			div3 = claim_element(div4_nodes, "DIV", { class: true });
+    			var div3_nodes = children(div3);
+    			table = claim_element(div3_nodes, "TABLE", {});
+    			var table_nodes = children(table);
+    			tbody = claim_element(table_nodes, "TBODY", {});
+    			var tbody_nodes = children(tbody);
+    			if (if_block0) if_block0.l(tbody_nodes);
+    			t16 = claim_space(tbody_nodes);
+    			if (if_block1) if_block1.l(tbody_nodes);
+    			tbody_nodes.forEach(detach);
+    			table_nodes.forEach(detach);
+    			div3_nodes.forEach(detach);
+    			div4_nodes.forEach(detach);
+    			main_nodes.forEach(detach);
+    			this.h();
+    		},
+    		h() {
+    			attr(h1, "class", "svelte-1l62ik3");
+    			attr(div0, "class", "titleContainer svelte-1l62ik3");
+    			attr(h2, "class", "svelte-1l62ik3");
+    			attr(label0, "for", "artists");
+    			attr(button0, "type", "checkbox");
+    			set_style(button0, "margin-right", "30px");
+    			set_style(button0, "background-color", /*showArtists*/ ctx[1] ? "rgb(39,9,55)" : "#ffde59");
+    			attr(button0, "class", "svelte-1l62ik3");
+    			attr(label1, "for", "spectators");
+    			set_style(label1, "margin-left", "30px");
+    			set_style(button1, "background-color", /*showSpectators*/ ctx[2] ? "rgb(39,9,55)" : "#ffde59");
+    			attr(button1, "type", "checkbox");
+    			attr(button1, "class", "svelte-1l62ik3");
+    			attr(div2, "class", "filterCategories svelte-1l62ik3");
+    			attr(h3, "class", "svelte-1l62ik3");
+    			attr(div3, "class", "tableWrapper svelte-1l62ik3");
+    			attr(div4, "class", "mainContainer svelte-1l62ik3");
+    			attr(main, "class", "svelte-1l62ik3");
+    		},
+    		m(target, anchor) {
+    			insert(target, main, anchor);
+    			append(main, div0);
+    			append(div0, h1);
+    			append(h1, t0);
+    			append(main, t1);
+    			append(main, div4);
+    			append(div4, h2);
+    			append(h2, t2);
+    			append(div4, t3);
+    			append(div4, p);
+    			append(p, t4);
+    			append(p, strong);
+    			append(strong, t5);
+    			append(div4, t6);
+    			append(div4, div1);
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].m(div1, null);
+    			}
+
+    			append(div4, t7);
+    			append(div4, div2);
+    			append(div2, label0);
+    			append(label0, t8);
+    			append(div2, t9);
+    			append(div2, button0);
+    			append(div2, t10);
+    			append(div2, label1);
+    			append(label1, t11);
+    			append(div2, t12);
+    			append(div2, button1);
+    			append(div4, t13);
+    			append(div4, h3);
+    			append(h3, t14);
+    			append(div4, t15);
+    			append(div4, div3);
+    			append(div3, table);
+    			append(table, tbody);
+    			if (if_block0) if_block0.m(tbody, null);
+    			append(tbody, t16);
+    			if (if_block1) if_block1.m(tbody, null);
+
+    			if (!mounted) {
+    				dispose = [
+    					listen(button0, "click", /*click_handler*/ ctx[6]),
+    					listen(button1, "click", /*click_handler_1*/ ctx[7])
+    				];
+
+    				mounted = true;
+    			}
+    		},
+    		p(ctx, dirty) {
+    			if (dirty & /*spectators*/ 16) {
+    				each_value = /*spectators*/ ctx[4];
+    				let i;
+
+    				for (i = 0; i < each_value_2.length; i += 1) {
+    					const child_ctx = get_each_context_2(ctx, each_value_2, i);
+
+    					if (each_blocks[i]) {
+    						each_blocks[i].p(child_ctx, dirty);
+    					} else {
+    						each_blocks[i] = create_each_block_2(child_ctx);
     						each_blocks[i].c();
     						each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
     					}
@@ -3691,6 +4034,7 @@ var app = (function () {
     			votesTicketNumbers = [];
     		} else {
     			return;
+
     		}
     	}
 
@@ -3819,6 +4163,7 @@ var app = (function () {
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
     			}
+
 
     			t9 = space();
     			button = element("button");
