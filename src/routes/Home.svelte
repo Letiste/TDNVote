@@ -179,7 +179,7 @@
     <h2>TDN-12 Novembre 2020</h2>
 
     {#if voted}
-      <p class="voted">Votre vote a été pris en compte !</p>
+      <p class="voted">Votre vote a bien été pris en compte !</p>
     {:else}
       <div class="errors">
         <ul>
