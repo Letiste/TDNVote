@@ -1,13 +1,51 @@
 <script>
   import { onMount } from 'svelte';
+
+  import ArtistService from '../services/ArtistService';
+  import SpectatorService from '../services/SpectatorService';
+
   const categories = ['Spectateur', 'Artiste'];
-  const artists = [];
+  const artists = ['Michel', 'Jean', 'Edouard', 'Catherine'];
 
   let ticketDirection;
 
   onMount(() => {
     ticketDirection = window.innerHeight > window.innerWidth ? 'column' : 'row';
   });
+
+  let categorie = 'Spectateur';
+  let ticketNumber = '';
+  let vote = artists[0];
+  let errors = [];
+  let voted = false;
+
+  function handleErrors(err) {
+    err.response.data.message.forEach(({ message }) => {
+      let error;
+      if (message.includes('max'))
+        error = 'Le n° de ticket doit être inférieur à 200';
+      else if (message.includes('min'))
+        error = 'Ce n° de ticket doit être supérieur à 0';
+      else if (message.includes('unique'))
+        error = 'Ce n° de ticket a déjà été utilisé';
+      else error = message;
+      errors = [...errors, error];
+    });
+  }
+
+  function handleSubmit() {
+    const voter = { ticketNumber, vote };
+    errors = [];
+    if (categorie === 'Spectateur') {
+      SpectatorService.create(voter)
+        .then(() => (voted = true))
+        .catch(handleErrors);
+    } else {
+      ArtistService.create(voter)
+        .then(() => (voted = true))
+        .catch(handleErrors);
+    }
+  }
 </script>
 
 <style>
@@ -50,6 +88,13 @@
     font-size: 3rem;
     padding-top: 40px;
     text-align: center;
+  }
+
+  .errors li {
+    color: rgb(200, 0, 0);
+    list-style: none;
+    font-size: 1.5rem;
+    font-weight: bold;
   }
 
   form {
@@ -114,6 +159,15 @@
     color: #ffde59;
     cursor: pointer;
   }
+
+  .voted {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #ffde59;
+    background-color: rgb(39, 9, 55);
+    border-radius: 10px;
+    padding: 20px;
+  }
 </style>
 
 <main>
@@ -123,27 +177,45 @@
 
   <div class="mainContainer">
     <h2>TDN-12 Novembre 2020</h2>
-    <form>
-      <div class="ticket" style="flex-direction: {ticketDirection}">
-        <label for="ticketRole">Catégorie</label>
-        <select name="ticketRole" id="ticketRole">
-          {#each categories as categorie}
-            <option value={categorie}>{categorie}</option>
+
+    {#if voted}
+      <p class="voted">Votre vote a été pris en compte !</p>
+    {:else}
+      <div class="errors">
+        <ul>
+          {#each errors as error}
+            <li>{error}</li>
+          {/each}
+        </ul>
+      </div>
+
+      <form on:submit|preventDefault={handleSubmit}>
+        <div class="ticket" style="flex-direction: {ticketDirection}">
+          <label for="ticketRole">Catégorie</label>
+          <select name="ticketRole" id="ticketRole" bind:value={categorie}>
+            {#each categories as categorie}
+              <option value={categorie}>{categorie}</option>
+            {/each}
+          </select>
+
+          <label for="ticketNumber">N° de place</label>
+          <input
+            name="ticketNumber"
+            id="ticketNumber"
+            type="number"
+            required
+            bind:value={ticketNumber} />
+        </div>
+
+        <label for="vote" style="align-self: start">N° du gagnant</label>
+        <select name="vote" id="vote" bind:value={vote}>
+          {#each artists as artist}
+            <option value={artist}>{artist}</option>
           {/each}
         </select>
 
-        <label for="ticketNumber">N° de place</label>
-        <input name="ticketNumber" id="ticketNumber" type="number" />
-      </div>
-
-      <label for="vote" style="align-self: start">N° du gagnant</label>
-      <select name="vote" id="vote">
-        {#each artists as artist}
-          <option value={artist}>{artist}</option>
-        {/each}
-      </select>
-
-      <button type="submit">Voter</button>
-    </form>
+        <button type="submit">Voter</button>
+      </form>
+    {/if}
   </div>
 </main>

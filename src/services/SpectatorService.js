@@ -1,11 +1,11 @@
-import http from './http-common';
+import httpCommon from './http-common';
 
 function create(vote) {
-  return http.post('/spectators', vote);
+  return httpCommon.post('/spectators', vote);
 }
 
 function get() {
-  return http.get('/spectators');
+  return httpCommon.get('/spectators');
 }
 
 export default {

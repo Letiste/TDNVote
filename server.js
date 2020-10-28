@@ -3,7 +3,6 @@ const cors = require('cors')
 const bodyParser = require('body-parser')
 const app = require('./public/App.js');
 const path = require('path')
-const fs = require('fs')
 
 const server = express();
 
@@ -16,25 +15,21 @@ server.use(bodyParser.json())
 
 server.use(express.static(path.join(__dirname, 'public')));
 
-const directoryPath = path.join(__dirname, 'routes');
+const router = new express.Router()
 
-// Automatically add routes to the app
-fs.readdir(directoryPath, function (err, files) {
-  if (err) {
-    return console.log('Unable to scan directory : ' + err);
-  }
-  files.forEach((file) => {
-    require(`./routes/${file}`)(server);
-  });
-});
+router.use('/artists', require('./routes/artist'));
+router.use('/spectators', require('./routes/spectator'))
 
+server.use('/api', router)
 
 server.get('*', function (req, res) {
   const { html } = app.render({ url: req.url });
 
   res.write(`
   <!DOCTYPE html>
-  <link rel ="stylesheet" href="/bundle.css">
+  <title>TDN - Vote</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="/bundle.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rye">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abhaya Libre">
   <body style="margin:0px">${html}</body>
