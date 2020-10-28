@@ -13,15 +13,14 @@ exports.create = async (req, res) => {
 
     res.status(201).send({ message: 'Spectator was successfully created' });
   } catch (err) {
-    console.log(err);
-    res.status(500).send({ message: err.message });
+    res.status(500).send({ message: err.errors });
   }
 };
 
 // Retrieve all Spectators
 exports.findAll = async (req, res) => {
   try {
-    const spectators = await Spectator.findAll();
+    const spectators = await Spectator.findAll({attributes: ["ticketNumber", "vote"]});
 
     res.status(200).send(spectators);
   } catch (err) {

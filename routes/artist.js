@@ -1,11 +1,9 @@
-module.exports = (app) => {
-  const post = require('../controllers/artist');
+const post = require('../controllers/artist');
 
-  let router = require('express').Router();
+let router = require('express').Router();
 
-  router.post('/', post.create);
+router.post('/', post.create);
 
-  router.get('/', post.findAll);
+router.get('/', post.findAll);
 
-  app.use('/api/artists', router);
-};
+module.exports = router

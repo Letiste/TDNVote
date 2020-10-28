@@ -3,6 +3,7 @@ import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
+import json from "@rollup/plugin-json"
 
 const isDev = Boolean(process.env.ROLLUP_WATCH);
 
@@ -23,8 +24,14 @@ export default [
           css.write('bundle.css');
         },
       }),
-      resolve(),
+      
+      resolve({
+        jsnext:true,
+        main: true,
+        browser: true
+      }),
       commonjs(),
+      json(),
       // App.js will be built after bundle.js, so we only need to watch that.
       // By setting a small delay the Node server has a chance to restart before reloading.
       isDev &&
@@ -48,8 +55,13 @@ export default [
       svelte({
         generate: 'ssr',
       }),
-      resolve(),
+      resolve({
+        jsnext:true,
+        main: true,
+        browser: true
+      }),
       commonjs(),
+      json(),
       !isDev && terser(),
     ],
   },
