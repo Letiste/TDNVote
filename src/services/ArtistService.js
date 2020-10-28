@@ -1,14 +1,19 @@
-import httpCommon from './http-common';
+import http from './http-common';
 
 function create(vote) {
-  return httpCommon.post('/artists', vote);
+  return http.post('/artists', vote);
 }
 
 function get() {
-  return httpCommon.get('/artists');
+  return http.get('/artists');
+}
+
+function destroy() {
+  return http.delete('/artists')
 }
 
 export default {
   create,
   get,
+  destroy
 };

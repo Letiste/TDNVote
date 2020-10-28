@@ -1,28 +1,16 @@
 <script>
   import { onMount } from 'svelte';
-  let nbVotes;
+
+  import ArtistService from '../services/ArtistService';
+  import SpectatorService from '../services/SpectatorService';
+
+  let nbVotes = 0;
 
   let showArtists = true;
   let showSpectators = true;
 
-  let artists = [
-    { ticketNumber: 15, vote: 13 },
-    { ticketNumber: 24, vote: 18 },
-    { ticketNumber: 35, vote: 13 },
-    { ticketNumber: 7, vote: 22 },
-    { ticketNumber: 47, vote: 17 },
-    { ticketNumber: 58, vote: 18 },
-    { ticketNumber: 4, vote: 13 },
-  ];
-  let spectators = [
-    { ticketNumber: 15, vote: 12 },
-    { ticketNumber: 24, vote: 18 },
-    { ticketNumber: 35, vote: 12 },
-    { ticketNumber: 7, vote: 22 },
-    { ticketNumber: 47, vote: 17 },
-    { ticketNumber: 58, vote: 18 },
-    { ticketNumber: 4, vote: 12 },
-  ];
+  let artists = [];
+  let spectators = [];
 
   let cumulatedVotes = [];
   let votesTicketNumbers = [];
@@ -40,11 +28,32 @@
       }
     });
   }
-  onMount(() => {
+  onMount(async () => {
+    const resArtists = await ArtistService.get();
+    artists = resArtists.data;
+    const resSpectators = await SpectatorService.get();
+    spectators = resSpectators.data;
+
     getCumulatedVotes(artists);
     getCumulatedVotes(spectators);
+    cumulatedVotes.sort((artistX, artistY) => {
+      return artistY.nbVote - artistX.nbVote;
+    });
+
     nbVotes = artists.length + spectators.length;
   });
+
+  function handleDestroy() {
+    if (confirm('Voulez-vous supprimer tous les votes ?')) {
+      ArtistService.destroy().then(() => (artists = []));
+      SpectatorService.destroy().then(() => (spectators = []));
+      nbVotes = 0;
+      cumulatedVotes = [];
+      votesTicketNumbers = [];
+    } else {
+      return;
+    }
+  }
 </script>
 
 <style>
@@ -86,16 +95,47 @@
     box-sizing: content-box;
   }
 
-  .votesBar {
-    display: inline-block;
-    height: 1.5rem;
-  }
-
   h2 {
     font-family: 'Rye';
     font-size: 3rem;
     padding-top: 40px;
     text-align: center;
+  }
+
+  .details {
+    display: flex;
+  }
+
+  .details p {
+    margin-left: 15px;
+  }
+
+  .destroyVotes {
+    border: 4px solid rgb(200, 0, 0);
+    border-radius: 10px;
+    background-color: transparent;
+    color: rgb(200, 0, 0);
+    font-size: 1.7rem;
+    line-height: 0;
+    font-weight: bold;
+    padding: 10px;
+    width: 190px;
+    height: 50px;
+    margin-right: 15px;
+    cursor: pointer;
+    transition: all 300ms;
+  }
+
+  .destroyVotes:hover {
+    background-color: rgb(200, 0, 0);
+    color: #fff;
+  }
+
+  .votesBar {
+    display: inline-block;
+    margin-left: 20px;
+    margin-right: 20px;
+    height: 1.5rem;
   }
 
   .filterCategories {
@@ -135,7 +175,10 @@
 
   <div class="mainContainer">
     <h2>Administration</h2>
-    <p>Nombre de votes : <strong>{nbVotes}</strong></p>
+    <div class="details">
+      <button class="destroyVotes" on:click={handleDestroy}>Reset votes</button>
+      <p>Nombre de votes : <strong>{nbVotes}</strong></p>
+    </div>
 
     <div>
       {#each cumulatedVotes as { ticketNumber, nbVote }}
@@ -152,12 +195,12 @@
       <label for="artists">Artistes</label>
       <button
         type="checkbox"
-        style="margin-right: 30px; background-color: {showArtists ? 'rgb(39,9,55)' : '#ffde59'}"
+        style="margin-right: 30px; background-color: {showArtists ? '#ffde59' : 'rgb(39,9,55)'}"
         on:click={() => (showArtists = !showArtists)} />
 
       <label for="spectators" style="margin-left: 30px">Spectateurs</label>
       <button
-        style="background-color: {showSpectators ? 'rgb(39,9,55)' : '#ffde59'}"
+        style="background-color: {showSpectators ? '#ffde59' : 'rgb(39,9,55)'}"
         type="checkbox"
         on:click={() => (showSpectators = !showSpectators)} />
     </div>

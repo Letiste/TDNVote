@@ -27,3 +27,14 @@ exports.findAll = async (req, res) => {
     res.status(500).send({ message: err.message });
   }
 };
+
+// Delete all Artists
+exports.delete = async (req, res) => {
+  try {
+    await Artist.destroy({truncate: true})
+
+    res.status(200).send({message: 'All Artists have been deleted'})
+  } catch (err) {
+    res.status(500).send({message: err.message})
+  }
+}
