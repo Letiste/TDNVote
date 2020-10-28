@@ -8,7 +8,12 @@ function get() {
   return httpCommon.get('/artists');
 }
 
+function destroy() {
+  return http.delete('/artists')
+}
+
 export default {
   create,
   get,
+  destroy
 };

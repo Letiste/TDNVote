@@ -1,9 +1,11 @@
-const post = require('../controllers/spectator');
+const spectator = require('../controllers/spectator');
 
 let router = require('express').Router();
 
-router.post('/', post.create);
+router.post('/', spectator.create);
 
-router.get('/', post.findAll);
+router.get('/', spectator.findAll);
+
+router.delete('/', spectator.delete)
 
 module.exports = router;

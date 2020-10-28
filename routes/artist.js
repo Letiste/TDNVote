@@ -1,9 +1,11 @@
-const post = require('../controllers/artist');
+const artist = require('../controllers/artist');
 
 let router = require('express').Router();
 
-router.post('/', post.create);
+router.post('/', artist.create);
 
-router.get('/', post.findAll);
+router.get('/', artist.findAll);
+
+router.delete('/', artist.delete)
 
 module.exports = router

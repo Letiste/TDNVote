@@ -8,7 +8,12 @@ function get() {
   return httpCommon.get('/spectators');
 }
 
+function destroy() {
+  return http.delete('/spectators')
+}
+
 export default {
   create,
   get,
+  destroy
 };
