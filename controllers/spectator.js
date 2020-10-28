@@ -20,7 +20,9 @@ exports.create = async (req, res) => {
 // Retrieve all Spectators
 exports.findAll = async (req, res) => {
   try {
-    const spectators = await Spectator.findAll({attributes: ["ticketNumber", "vote"]});
+    const spectators = await Spectator.findAll({
+      attributes: ['ticketNumber', 'vote'],
+    });
 
     res.status(200).send(spectators);
   } catch (err) {
@@ -31,11 +33,10 @@ exports.findAll = async (req, res) => {
 // Delete all Artists
 exports.delete = async (req, res) => {
   try {
-    await Spectator.destroy({truncate: true})
+    await Spectator.destroy({ truncate: true });
 
-    res.status(200).send({message: 'All Spectators have been deleted'})
+    res.status(200).send({ message: 'All Spectators have been deleted' });
   } catch (err) {
-    res.status(500).send({message: err.message})
+    res.status(500).send({ message: err.message });
   }
-}
-
+};
