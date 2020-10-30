@@ -20,7 +20,9 @@ exports.create = async (req, res) => {
 // Retrieve all Artists
 exports.findAll = async (req, res) => {
   try {
-    const artists = await Artist.findAll({attributes: ["ticketNumber", "vote"]});
+    const artists = await Artist.findAll({
+      attributes: ['ticketNumber', 'vote'],
+    });
 
     res.status(200).send(artists);
   } catch (err) {
@@ -31,10 +33,10 @@ exports.findAll = async (req, res) => {
 // Delete all Artists
 exports.delete = async (req, res) => {
   try {
-    await Artist.destroy({truncate: true})
+    await Artist.destroy({ truncate: true });
 
-    res.status(200).send({message: 'All Artists have been deleted'})
+    res.status(200).send({ message: 'All Artists have been deleted' });
   } catch (err) {
-    res.status(500).send({message: err.message})
+    res.status(500).send({ message: err.message });
   }
-}
+};

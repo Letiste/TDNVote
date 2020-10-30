@@ -5,15 +5,15 @@ function create(vote) {
 }
 
 function get() {
-  return httpCommon.get('/artists');
+  return httpCommon.get(`/artists`);
 }
 
 function destroy() {
-  return http.delete('/artists')
+  return httpCommon.delete(`/artists`);
 }
 
 export default {
   create,
   get,
-  destroy
+  destroy,
 };

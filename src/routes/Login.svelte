@@ -1,25 +1,20 @@
 <script>
+  import LoginService from '../services/LoginService';
+  import { navigate } from 'svelte-routing';
+
   let errors = [];
 
   let username = '';
   let password = '';
 
-  function handleErrors(err) {
-    err.response.data.message.forEach(({ message }) => {
-      let error;
-      if (message.includes('max'))
-        error = 'Le n° de ticket doit être inférieur à 200';
-      else if (message.includes('min'))
-        error = 'Ce n° de ticket doit être supérieur à 0';
-      else if (message.includes('unique'))
-        error = 'Ce n° de ticket a déjà été utilisé';
-      else error = message;
-      errors = [...errors, error];
-    });
-  }
-
   function handleSubmit() {
-    console.log(username, password);
+    const user = { username, password };
+    console.log(user);
+    LoginService.create(user)
+      .then((res) => {
+        navigate('/admin', { replace: true });
+      })
+      .catch((err) => (errors = [err.response.data.message]));
   }
 </script>
 
@@ -89,25 +84,6 @@
     align-self: center;
   }
 
-  select {
-    font-size: 2rem;
-    margin: 15px;
-    border: 2px solid rgb(39, 9, 55);
-    border-radius: 10px;
-    padding: 5px;
-    background-color: #fff;
-    font-family: 'Abhaya Libre';
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    cursor: pointer;
-  }
-
-  .ticket {
-    display: flex;
-    flex-wrap: nowrap;
-  }
-
   input {
     font-size: 2rem;
     margin: 15px;
@@ -119,9 +95,7 @@
   }
 
   input:hover,
-  input:focus,
-  select:hover,
-  select:focus {
+  input:focus {
     border-color: #ffde59;
     border-radius: 10px;
   }

@@ -1,11 +1,21 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const app = require('./public/App.js');
+const app = require('../public/App.js');
 const path = require('path');
 const passport = require('passport');
+const session = require('express-session');
+const flash = require('connect-flash');
+const cookieParser = require('cookie-parser');
+const jwt = require('jsonwebtoken');
 
 const server = express();
+
+server.use(cookieParser('SECRET_TOKEN'));
+
+server.use(session({ secret: 'keyboard cat' }));
+
+server.use(flash());
 
 const corsOptions = {
   origin: ['http://localhost:3000', 'http://192.168.1.43:3000'],
@@ -27,21 +37,22 @@ server.use(
   secureRoute
 );
 
+server.use(
+  '/admin',
+  passport.authenticate('jwt', { session: false, failureRedirect: '/login' }),
+
+  (req, res, next) => {
+    return next();
+  }
+);
+
 const router = new express.Router();
 
 router.use('/artists', require('./routes/artist'));
 router.use('/spectators', require('./routes/spectator'));
+router.use('/login', require('./routes/login'));
 
 server.use('/api', router);
-
-server.get(
-  '/admin',
-  passport.authenticate('jwt', {
-    session: false,
-    successRedirect: '/admin',
-    failureRedirect: 'login',
-  })
-);
 
 server.get('*', function (req, res) {
   const { html } = app.render({ url: req.url });
