@@ -157,7 +157,7 @@
   }
 
   .tableWrapper {
-    height: 800px;
+    max-height: 800px;
     overflow: auto;
     width: 500px;
   }

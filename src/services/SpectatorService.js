@@ -5,15 +5,15 @@ function create(vote) {
 }
 
 function get() {
-  return httpCommon.get('/spectators');
+  return httpCommon.get(`/admin/spectators`);
 }
 
 function destroy() {
-  return http.delete('/spectators')
+  return httpCommon.delete(`/admin/spectators`);
 }
 
 export default {
   create,
   get,
-  destroy
+  destroy,
 };
