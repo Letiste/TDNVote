@@ -5,11 +5,11 @@ function create(vote) {
 }
 
 function get() {
-  return httpCommon.get(`/spectators`);
+  return httpCommon.get(`/admin/spectators`);
 }
 
 function destroy() {
-  return httpCommon.delete(`/spectators`);
+  return httpCommon.delete(`/admin/spectators`);
 }
 
 export default {

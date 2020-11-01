@@ -2925,11 +2925,11 @@ var app = (function () {
     }
 
     function get() {
-      return httpCommon.get(`/artists`);
+      return httpCommon.get(`/admin/artists`);
     }
 
     function destroy() {
-      return httpCommon.delete(`/artists`);
+      return httpCommon.delete(`/admin/artists`);
     }
 
     var ArtistService = {
@@ -2943,11 +2943,11 @@ var app = (function () {
     }
 
     function get$1() {
-      return httpCommon.get(`/spectators`);
+      return httpCommon.get(`/admin/spectators`);
     }
 
     function destroy$1() {
-      return httpCommon.delete(`/spectators`);
+      return httpCommon.delete(`/admin/spectators`);
     }
 
     var SpectatorService = {
@@ -3011,7 +3011,7 @@ var app = (function () {
     			this.h();
     		},
     		h() {
-    			attr(span, "class", "votesBar svelte-7tltmx");
+    			attr(span, "class", "votesBar svelte-1bon8hi");
     			set_style(span, "width", /*nbVote*/ ctx[18] * 300 / /*nbVotes*/ ctx[0] + "px");
     			set_style(span, "background-color", "hsl(" + /*nbVote*/ ctx[18] * 360 / /*nbVotes*/ ctx[0] + ", 90%, 50%)");
     		},
@@ -3151,9 +3151,9 @@ var app = (function () {
     			this.h();
     		},
     		h() {
-    			attr(td0, "class", "svelte-7tltmx");
-    			attr(td1, "class", "svelte-7tltmx");
-    			attr(tr, "class", "svelte-7tltmx");
+    			attr(td0, "class", "svelte-1bon8hi");
+    			attr(td1, "class", "svelte-1bon8hi");
+    			attr(tr, "class", "svelte-1bon8hi");
     		},
     		m(target, anchor) {
     			insert(target, tr, anchor);
@@ -3285,9 +3285,9 @@ var app = (function () {
     			this.h();
     		},
     		h() {
-    			attr(td0, "class", "svelte-7tltmx");
-    			attr(td1, "class", "svelte-7tltmx");
-    			attr(tr, "class", "svelte-7tltmx");
+    			attr(td0, "class", "svelte-1bon8hi");
+    			attr(td1, "class", "svelte-1bon8hi");
+    			attr(tr, "class", "svelte-1bon8hi");
     		},
     		m(target, anchor) {
     			insert(target, tr, anchor);
@@ -3495,27 +3495,27 @@ var app = (function () {
     			this.h();
     		},
     		h() {
-    			attr(h1, "class", "svelte-7tltmx");
-    			attr(div0, "class", "titleContainer svelte-7tltmx");
-    			attr(h2, "class", "svelte-7tltmx");
-    			attr(button0, "class", "destroyVotes svelte-7tltmx");
-    			attr(p, "class", "svelte-7tltmx");
-    			attr(div1, "class", "details svelte-7tltmx");
+    			attr(h1, "class", "svelte-1bon8hi");
+    			attr(div0, "class", "titleContainer svelte-1bon8hi");
+    			attr(h2, "class", "svelte-1bon8hi");
+    			attr(button0, "class", "destroyVotes svelte-1bon8hi");
+    			attr(p, "class", "svelte-1bon8hi");
+    			attr(div1, "class", "details svelte-1bon8hi");
     			attr(label0, "for", "artists");
     			attr(button1, "type", "checkbox");
     			set_style(button1, "margin-right", "30px");
     			set_style(button1, "background-color", /*showArtists*/ ctx[1] ? "#ffde59" : "rgb(39,9,55)");
-    			attr(button1, "class", "svelte-7tltmx");
+    			attr(button1, "class", "svelte-1bon8hi");
     			attr(label1, "for", "spectators");
     			set_style(label1, "margin-left", "30px");
     			set_style(button2, "background-color", /*showSpectators*/ ctx[2] ? "#ffde59" : "rgb(39,9,55)");
     			attr(button2, "type", "checkbox");
-    			attr(button2, "class", "svelte-7tltmx");
-    			attr(div3, "class", "filterCategories svelte-7tltmx");
-    			attr(h3, "class", "svelte-7tltmx");
-    			attr(div4, "class", "tableWrapper svelte-7tltmx");
-    			attr(div5, "class", "mainContainer svelte-7tltmx");
-    			attr(main, "class", "svelte-7tltmx");
+    			attr(button2, "class", "svelte-1bon8hi");
+    			attr(div3, "class", "filterCategories svelte-1bon8hi");
+    			attr(h3, "class", "svelte-1bon8hi");
+    			attr(div4, "class", "tableWrapper svelte-1bon8hi");
+    			attr(div5, "class", "mainContainer svelte-1bon8hi");
+    			attr(main, "class", "svelte-1bon8hi");
     		},
     		m(target, anchor) {
     			insert(target, main, anchor);
@@ -4399,7 +4399,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (127:8) {#each errors as error}
+    // (128:8) {#each errors as error}
     function create_each_block$2(ctx) {
     	let li;
     	let t_value = /*error*/ ctx[6] + "";

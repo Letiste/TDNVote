@@ -5,11 +5,11 @@ function create(vote) {
 }
 
 function get() {
-  return httpCommon.get(`/artists`);
+  return httpCommon.get(`/admin/artists`);
 }
 
 function destroy() {
-  return httpCommon.delete(`/artists`);
+  return httpCommon.delete(`/admin/artists`);
 }
 
 export default {

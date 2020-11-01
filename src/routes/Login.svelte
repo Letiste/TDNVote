@@ -1,4 +1,5 @@
 <script>
+  import { onMount } from 'svelte';
   import LoginService from '../services/LoginService';
   import { navigate } from 'svelte-routing';
 

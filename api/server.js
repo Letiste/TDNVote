@@ -7,7 +7,6 @@ const passport = require('passport');
 const session = require('express-session');
 const flash = require('connect-flash');
 const cookieParser = require('cookie-parser');
-const jwt = require('jsonwebtoken');
 
 const server = express();
 
@@ -25,26 +24,9 @@ server.use(cors(corsOptions));
 
 server.use(bodyParser.json());
 
-server.use(express.static(path.join(__dirname, 'public')));
+server.use(express.static(path.join(__dirname, '../public')));
 
 require('./auth/auth');
-
-const secureRoute = require('./routes/secureRoutes/secureRoutes');
-
-server.use(
-  '/api',
-  passport.authenticate('jwt', { session: false }),
-  secureRoute
-);
-
-server.use(
-  '/admin',
-  passport.authenticate('jwt', { session: false, failureRedirect: '/login' }),
-
-  (req, res, next) => {
-    return next();
-  }
-);
 
 const router = new express.Router();
 
@@ -53,6 +35,27 @@ router.use('/spectators', require('./routes/spectator'));
 router.use('/login', require('./routes/login'));
 
 server.use('/api', router);
+
+const secureRoute = require('./routes/secureRoutes/secureRoutes');
+
+server.use(
+  '/api/admin',
+  passport.authenticate('jwt', { session: false }),
+  secureRoute
+);
+
+server.get(
+  '/admin',
+  passport.authenticate('jwt', {
+    session: false,
+    failureRedirect: '/login',
+    failureFlash: "Vous n'êtes pas connecté",
+  }),
+
+  (req, res, next) => {
+    return next();
+  }
+);
 
 server.get('*', function (req, res) {
   const { html } = app.render({ url: req.url });
